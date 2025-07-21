@@ -28,6 +28,17 @@ const putUser = async (req, res, next) => {
     }
 }
 
+const deleteUser = async (req, res, next) =>{
+    const { pk_user } = req.params
+    try {
+        let user = await users.deleteUser(pk_user)
+        res.status(200).send(user)
+        next()
+    } catch (e) {
+        console.log(e.message)
+        res.sendStatus(500) && next(e)
+    }
+}
 
 const createUser = async (req, res, next) => {
     const { pk_user, name } = req.body

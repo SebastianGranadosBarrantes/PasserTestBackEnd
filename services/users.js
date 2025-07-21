@@ -24,7 +24,13 @@ const updateUser = async(pk_user, name, status) => {
     }
 }
 
-
+const deleteUser = async (pk_user) =>{
+    try {
+        return await usersModel.deleteUser(pk_user)
+    } catch (e) {
+        throw new Error(e.message)
+    }
+} 
 
 /**
  * Create an user
@@ -45,6 +51,6 @@ const createUser = async (pk_user, name) => {
 module.exports = {
     getUser,
     updateUser,
-
+    deleteUser,
     createUser
 }
