@@ -13,6 +13,19 @@ const getUser = async (pk_user) => {
     }
 }
 
+const updateUser = async(pk_user, name, status) => {
+    console.log(`The name is ${name} and the status is ${status}`)
+    try{
+        console.log(`Arrives to the upodate user in the service`)
+        return await usersModel.updateUser(pk_user, name, status)
+    }
+    catch (e) {
+        throw new Error(e.message)
+    }
+}
+
+
+
 /**
  * Create an user
  * @param {number} pk_user User id
@@ -31,5 +44,7 @@ const createUser = async (pk_user, name) => {
 
 module.exports = {
     getUser,
+    updateUser,
+
     createUser
 }

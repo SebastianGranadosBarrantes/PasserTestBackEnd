@@ -12,7 +12,7 @@ const createUser = (pk_user, name) => {
         return user
     }
     catch (e) {
-        throw new Error(e)
+        throw new Error(`Error creating user: ${e.message}`)
     }
 }
 
@@ -22,9 +22,16 @@ const createUser = (pk_user, name) => {
  * @param {string} name User name
  * @returns {{pk_user: 1, name: "Juan"}}
  */
-const updateUser = (pk_user, name) => {
-
-    throw new Error('Method not implemented.');
+const updateUser = (pk_user, name, status) => {
+    console.log(`The name is ${name} and the status is ${status}`)
+    try{
+        let user = postgresql.public.one(`update users set name = '${name}', status = '${JSON.parse(status)}' where pk_user = '${pk_user}' returning *;`);
+        return user
+    }
+    catch (e) {
+        throw new Error(`Error updating user: ${e.message}`)
+    }
+    
 }
 
 /**
@@ -33,9 +40,13 @@ const updateUser = (pk_user, name) => {
  * @returns {{pk_user: 1, name: "Juan"}} User schema
  */
 const getUser = (pk_user) => {
-
-    let user = postgresql.public.one(`select * from users where pk_user = '${pk_user}'`);
+    try{
+        let user = postgresql.public.one(`select * from users where pk_user = '${pk_user}'`);
     return user
+    }
+    catch (e) {
+        throw new Error(`Error getting user: ${e.message}`)
+    }
 }
 
 /**
@@ -43,12 +54,9 @@ const getUser = (pk_user) => {
  * @param {number} pk_user User primary key
  * @returns {pk_user: 1} User primary key
  */
-const deleteUser = (pk_user) => {
 
-    throw new Error('Method not implemented.');
-}
-
-module.exports = {
+module.exports = { // Exporting the functions
     createUser,
-    getUser
+    getUser,
+    updateUser,
 }
