@@ -15,15 +15,35 @@ const createTransaction = async (req, res, next) => {
 
 const getTransaction = async (req, res, next) => {
     const { pk_transaction } = req.params
-    try {
-        let transaction =  transactions.getTransaction(pk_transaction)
-        res.status(200).send(transaction)
-        next()
-    } catch (e) {
-        console.log(e.message)
-        res.sendStatus(500) && next(e)
+    const { fk_user } = req.query
+    console.log(`getTransaction called with pk_transaction: ${pk_transaction} and fk_user: ${fk_user}`)
+    if (pk_transaction) {
+        try {
+            let transaction = transactions.getTransaction(pk_transaction)
+            res.status(200).send(transaction)
+            next()
+        } catch (e) {
+            console.log(e.message)
+            res.sendStatus(500) && next(e)
+        }
+    }
+    else if (fk_user) {
+        try {
+            let transaction = transactions.getTransactionsPerUser(fk_user)
+            res.status(200).send(transaction)
+            next()
+        } catch (e) {
+            console.log(e.message)
+            res.sendStatus(500) && next(e)
+        }
+    }
+    else {
+        res.status(400).send({ error: 'Invalid request parameters' })
+        next(new Error('Invalid request parameters'))
     }
 }
+
+
 
 const updateTransaction = async (req, res, next) => {
     const { pk_transaction } = req.params

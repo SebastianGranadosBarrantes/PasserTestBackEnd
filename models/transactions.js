@@ -29,7 +29,7 @@ const getTransaction = (pk_transaction) => {
         return transaction
     }
     catch (e) {
-        throw new Error(`Error creating transaction: ${e.message}`)
+        throw new Error(`Error fetching transaction: ${e.message}`)
     }
 }
 
@@ -52,9 +52,25 @@ const updateTransaction = (pk_transaction, fk_user, description, amount) => {
     
 }
 
+/**
+ * Create a transaction
+ * @param {number} pk_transaction Transaction primary key
+ * @returns {{pk_transaction: 1, fk_user: 1, description: "Juan", amount: 100.0}}
+ */
+const getTransactionsPerUser = (fk_user) => {
+    try {
+        let transaction = postgresql.public.one(`select * from transactions where fk_user = '${fk_user}'`);
+        return transaction
+    }
+    catch (e) {
+        throw new Error(`Error fetching transactions per user: ${e.message}`)
+    }
+}
+
 module.exports = {
     createTransaction,
     getTransaction,
-    updateTransaction
+    updateTransaction,
+    getTransactionsPerUser
 }
 
