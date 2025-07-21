@@ -17,6 +17,24 @@ const createTransaction = (pk_transaction, fk_user, description, amount) => {
         throw new Error(`Error creating transaction: ${e.message}`)
     }
 }
-module.exports = {
-    createTransaction
+
+/**
+ * Create a transaction
+ * @param {number} pk_transaction Transaction primary key
+ * @returns {{pk_transaction: 1, fk_user: 1, description: "Juan", amount: 100.0}}
+ */
+const getTransaction = (pk_transaction) => {
+    try {
+        let transaction = postgresql.public.one(`select * from transactions where pk_transaction = '${pk_transaction}'`);
+        return transaction
+    }
+    catch (e) {
+        throw new Error(`Error creating transaction: ${e.message}`)
+    }
 }
+
+module.exports = {
+    createTransaction,
+    getTransaction
+}
+
