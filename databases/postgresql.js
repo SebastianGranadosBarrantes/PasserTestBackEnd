@@ -4,7 +4,7 @@ const postgresql = newDb();
 
 // create mock data
 postgresql.public.none(`create table users(pk_user integer, name text, status boolean);
-		create table users( pk_transaction integer, fk_user integer, description text, amount real);
+		create table transactions( pk_transaction integer, fk_user integer, description text, amount real);
                 insert into users values (1, 'Sebastián', true);
                 insert into users values (123, 'Juan', true);`);
 
