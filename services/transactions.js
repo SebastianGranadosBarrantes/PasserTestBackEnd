@@ -20,7 +20,7 @@ const createTransaction = (pk_transaction, fk_user, description, amount) => {
 }
 
 /**
- * Create get a transaction by primary key
+ * Get a transaction by primary key
  * @param {number} pk_transaction Transaction primary key
  * @returns {{pk_transaction: 1, fk_user: 1, description: "Juan", amount: 100.0}}
  */
@@ -33,7 +33,21 @@ const getTransaction = (pk_transaction) => {
 }
 
 /**
- * Create get a transaction by primary key
+ * Get a transaction paginated, 5 per page
+ * @param {number} page Page number
+ * @returns {Array<{pk_transaction: 1, fk_user: 1, description: "Juan", amount: 100.0}>}
+ */
+const getTransactionsPaginated = (page) => {
+    try {
+        return transactionsModel.getTransactionsPaginated(page)
+    } catch (e) {
+        throw new Error(e.message)
+    }
+}
+
+
+/**
+ * Get a transaction by primary key
  * @param {number} fk_user Transaction primary key
  * @returns {{pk_transaction: 1, fk_user: 1, description: "Juan", amount: 100.0}}
  */
@@ -66,6 +80,7 @@ module.exports = {
     createTransaction,
     getTransaction,
     updateTransaction,
-    getTransactionsPerUser
+    getTransactionsPerUser,
+    getTransactionsPaginated
 }
 

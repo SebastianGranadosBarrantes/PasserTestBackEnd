@@ -52,11 +52,25 @@ const updateTransaction = (pk_transaction, fk_user, description, amount) => {
     
 }
 
+/**
+ * Get transactions paginated, 5 per page
+ * @param {number} page Page number
+ * @returns {Array<{pk_transaction: 1, fk_user: 1, description: "Juan", amount: 100.0}>}
+ */
+const getTransactionsPaginated = (page) => {
+
+    try {
+        let transaction = postgresql.public.many(`select * from transactions order by pk_transaction limit 5 offset ${(page - 1) * 5}`);
+        return transaction
+    }
+    catch (e) {
+        throw new Error(`Error fetching transaction: ${e.message}`)
+    }
+}
 
 
 /**
  * Get transactions per user
- * @param {number} pk_transaction Transaction primary key
  * @returns {Array<{pk_transaction: 1, fk_user: 1, description: "Juan", amount: 100.0}>}
  */
 const getTransactionsPerUser = (fk_user) => {
@@ -73,6 +87,7 @@ module.exports = {
     createTransaction,
     getTransaction,
     updateTransaction,
-    getTransactionsPerUser
+    getTransactionsPerUser,
+    getTransactionsPaginated
 }
 
