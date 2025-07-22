@@ -19,7 +19,7 @@ const createTransaction = (pk_transaction, fk_user, description, amount) => {
 }
 
 /**
- * Create a transaction
+ * Get a transaction by primary key
  * @param {number} pk_transaction Transaction primary key
  * @returns {{pk_transaction: 1, fk_user: 1, description: "Juan", amount: 100.0}}
  */
@@ -34,7 +34,7 @@ const getTransaction = (pk_transaction) => {
 }
 
 /**
- * Create a transaction
+ * Update a transaction
  * @param {number} pk_transaction Transaction primary key
  * @param {number} fk_user User foreign key
  * @param {string} description Transaction description
@@ -52,14 +52,16 @@ const updateTransaction = (pk_transaction, fk_user, description, amount) => {
     
 }
 
+
+
 /**
- * Create a transaction
+ * Get transactions per user
  * @param {number} pk_transaction Transaction primary key
- * @returns {{pk_transaction: 1, fk_user: 1, description: "Juan", amount: 100.0}}
+ * @returns {Array<{pk_transaction: 1, fk_user: 1, description: "Juan", amount: 100.0}>}
  */
 const getTransactionsPerUser = (fk_user) => {
     try {
-        let transaction = postgresql.public.one(`select * from transactions where fk_user = '${fk_user}'`);
+        let transaction = postgresql.public.many(`select * from transactions where fk_user = '${fk_user}'`);
         return transaction
     }
     catch (e) {
