@@ -1,4 +1,7 @@
+// controllers/users.js
 const users = require("../services/users");
+
+// Get user controller
 const getUser = async (req, res, next) => {
   console.log("getUser called");
   const { pk_user } = req.params;
@@ -13,6 +16,8 @@ const getUser = async (req, res, next) => {
   }
 };
 
+
+// Update user controller
 const putUser = async (req, res, next) => {
   const { pk_user } = req.params;
   const { name, status } = req.body;
@@ -28,6 +33,7 @@ const putUser = async (req, res, next) => {
   }
 };
 
+// Delete user controller
 const deleteUser = async (req, res, next) => {
   const { pk_user } = req.params;
   try {
@@ -40,6 +46,7 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
+// Create user controller
 const createUser = async (req, res, next) => {
   const { pk_user, name } = req.body;
   try {
@@ -52,6 +59,7 @@ const createUser = async (req, res, next) => {
   }
 };
 
+// Exporting the controllers
 module.exports = {
   getUser,
   putUser,

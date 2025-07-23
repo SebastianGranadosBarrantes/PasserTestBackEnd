@@ -13,6 +13,12 @@ const getUser = async (pk_user) => {
   }
 };
 
+/**
+ * Update an specific user
+ * @param {number} pk_user User primary key
+ * @param {string} name User name
+ * @returns {{pk_user: 1, name: "Juan"}}
+ */
 const updateUser = async (pk_user, name, status) => {
   console.log(`The name is ${name} and the status is ${status}`);
   try {
@@ -23,6 +29,11 @@ const updateUser = async (pk_user, name, status) => {
   }
 };
 
+/**
+ * Delete an specific user
+ * @param {number} pk_user User primary key
+ * @returns {pk_user: 1} User primary key
+ */
 const deleteUser = async (pk_user) => {
   try {
     return await usersModel.deleteUser(pk_user);

@@ -1,5 +1,7 @@
+// controllers/transactions.js
 const transactions = require("../services/transactions");
 
+// Create transaction controller
 const createTransaction = async (req, res, next) => {
   console.log("createTransaction called");
   const { pk_transaction, fk_user, description, amount } = req.body;
@@ -18,6 +20,7 @@ const createTransaction = async (req, res, next) => {
   }
 };
 
+// Get transaction controller, supports fetching by primary key, user foreign key, or pagination
 const getTransaction = async (req, res, next) => {
   const { pk_transaction } = req.params;
   const { fk_user } = req.query.fk_user ? req.query : {};
@@ -58,6 +61,8 @@ const getTransaction = async (req, res, next) => {
   }
 };
 
+
+// Update transaction controller
 const updateTransaction = async (req, res, next) => {
   const { pk_transaction } = req.params;
   const { fk_user, description, amount } = req.body;
@@ -76,6 +81,7 @@ const updateTransaction = async (req, res, next) => {
   }
 };
 
+// Exporting the controllers
 module.exports = {
   createTransaction,
   getTransaction,
